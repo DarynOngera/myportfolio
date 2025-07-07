@@ -72,7 +72,7 @@ const App: React.FC = () => {
           newOutput.push('You can reach me at: ongera@example.com');
           break;
         case 'clear':
-          newOutput = [];
+          newOutput = [...bootSequence];
           break;
         default:
           newOutput.push(`Command not found: ${input}. Type 'help' for a list of commands.`);

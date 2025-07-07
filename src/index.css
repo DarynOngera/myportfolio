@@ -29,17 +29,19 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 90%; /* More flexible width */
   max-width: 900px;
-  height: 600px;
+  height: 80vh; /* Responsive height */
+  min-height: 400px; /* Minimum height for usability */
+  min-width: 300px; /* Minimum width for usability */
 }
 
 .terminal-header {
-  background-color: #222;
-  padding: 8px;
+  background-color: #282828; /* Slightly darker header */
+  padding: 10px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .terminal-buttons {
@@ -79,9 +81,11 @@ body {
 }
 
 .terminal-output {
+  flex: 1;
   white-space: pre-wrap;
   word-wrap: break-word;
   overflow-x: hidden;
+  overflow-y: auto; /* Enable scrolling for output */
   padding-right: 10px;
   /* padding-bottom: 20px; Space for the input line */
 }
