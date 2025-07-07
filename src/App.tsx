@@ -40,7 +40,7 @@ const App: React.FC = () => {
       setCommandExecuted(true);
       let newOutput = [...output, `> ${input}`];
 
-      switch (input.toLowerCase()) {
+      switch (input.trim().toLowerCase()) {
         case 'help':
           newOutput.push('Available commands: help, about, projects, skills, contact, clear');
           break;
