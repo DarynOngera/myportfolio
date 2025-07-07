@@ -1,11 +1,15 @@
 body {
-  background-color: #1e1e1e;
-  color: #d4d4d4;
+  background-color: var(--background-color);
+  color: var(--text-color);
   font-family: 'Roboto Mono', monospace;
   font-size: 16px;
   line-height: 1.6;
   margin: 0;
-  padding: 2rem;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 :root {
@@ -13,58 +17,107 @@ body {
   --text-color: #c9d1d9; /* Light gray text */
   --command-color: #00ff00; /* Vibrant green for commands */
   --output-color: #90ee90; /* Softer green for general output */
+  --secondary-output-color: #87ceeb; /* Light sky blue for secondary output */
   --error-color: #f85149; /* Red for errors */
 }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
+.terminal-container {
+  background-color: var(--background-color);
+  border: 1px solid #333;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.3); /* Green glow */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  max-width: 900px;
+  height: 600px;
 }
 
-.output {
-  white-space: pre-wrap;
-}
-
-.input-line {
+.terminal-header {
+  background-color: #222;
+  padding: 8px;
   display: flex;
   align-items: center;
-  margin-top: 1rem;
+  border-bottom: 1px solid #333;
 }
 
-.input-line span {
-  margin-right: 0.5rem;
+.terminal-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.terminal-button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.terminal-button.close {
+  background-color: #ff5f56;
+}
+
+.terminal-button.minimize {
+  background-color: #ffbd2e;
+}
+
+.terminal-button.maximize {
+  background-color: #27c93f;
+}
+
+.terminal-title {
+  color: #aaa;
+  margin-left: 10px;
+  font-size: 0.9em;
+}
+
+.terminal-body {
+  flex-grow: 1;
+  padding: 10px;
+  overflow-y: auto;
+  position: relative; /* For absolute positioning of input */
+}
+
+.terminal-output {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-x: hidden;
+  padding-right: 10px;
+  /* padding-bottom: 20px; Space for the input line */
+}
+
+.terminal-input-line {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.terminal-prompt {
   color: var(--command-color);
+  margin-right: 5px;
 }
 
-.input-line input {
+.terminal-input {
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid transparent; /* Initial transparent border */
-  color: var(--text-color);
+  color: var(--text-color); /* Make typed characters visible */
+  caret-color: var(--command-color); /* Blinking cursor color */
   font-family: inherit;
   font-size: inherit;
   outline: none;
-  width: 100%;
-  transition: border-color 0.2s ease-in-out;
+  flex-grow: 1; /* Allow input to take remaining space */
+  padding: 0;
+  margin: 0;
 }
 
-.input-line input:focus {
-  border-bottom-color: var(--command-color); /* Highlight on focus */
-}
-
-.command-executed {
-  animation: command-fade-in 0.3s ease-out;
-}
-
-@keyframes command-fade-in {
-  from {
-    opacity: 0.5;
-    transform: translateY(5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.cursor {
+  /* This class will no longer be directly used for the input caret, but kept for other blinking elements if needed */
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  background-color: var(--command-color);
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
 }
 
 @keyframes blink {
@@ -81,19 +134,10 @@ body {
   color: var(--output-color);
 }
 
+.secondary-output-color {
+  color: var(--secondary-output-color);
+}
+
 .error-color {
   color: var(--error-color);
-}
-
-.line-reveal {
-  opacity: 0;
-  transform: translateY(10px);
-  animation: fade-in-slide-up 0.5s forwards;
-}
-
-@keyframes fade-in-slide-up {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
