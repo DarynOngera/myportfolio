@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, JSX } from 'react';
 import './index.css';
 
 const App: React.FC = () => {
   const [input, setInput] = useState('');
-  const [output, setOutput] = useState<string[]>([]);
+  const [output, setOutput] = useState<(string | JSX.Element)[]>([]);
   const [booting, setBooting] = useState(true);
   const [commandExecuted, setCommandExecuted] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -69,7 +69,16 @@ const App: React.FC = () => {
           newOutput.push('Skills: System Administration, Cloud Platforms (AWS, Azure), Mobile Development, Web Technologies, Prompt Engineering.');
           break;
         case 'contact':
-          newOutput.push('You can reach me at: ongera@example.com');
+          newOutput.push(
+            <>
+              You can reach me at: <img src="https://www.google.com/s2/favicons?domain=gmail.com" className="favicon" alt="Gmail icon" /> <a href="mailto:ongeradaryn@gmail.com" target="_blank" rel="noopener noreferrer" className="contact-link">ongeradaryn@gmail.com</a>
+            </>
+          );
+          newOutput.push(
+            <>
+              My GitHub: <img src="https://github.com/favicon.ico" className="favicon" alt="GitHub icon" /> <a href="https://github.com/DarynOngera" target="_blank" rel="noopener noreferrer" className="contact-link">DarynOngera</a>
+            </>
+          );
           break;
         case 'clear':
           newOutput = [...bootSequence];
@@ -112,11 +121,18 @@ const App: React.FC = () => {
           <div className="terminal-title">Portfolio</div>
         </div>
         <div className="terminal-body">
-          <pre id="terminal-output" className="terminal-output">
+          <div id="terminal-output" className="terminal-output">
             {output.map((line, index) => (
-              <span key={index} className={`output-color line-reveal ${index % 2 === 0 ? '' : 'secondary-output-color'}`}>{line}<br /></span>
+              <React.Fragment key={index}>
+                {typeof line === 'string' ? (
+                  <span className={index % 2 === 0 ? 'output-color' : 'secondary-output-color'}>{line}</span>
+                ) : (
+                  line
+                )}
+                <br />
+              </React.Fragment>
             ))}
-          </pre>
+          </div>
           {!booting && (
             <div className="terminal-input-line">
               <span className="terminal-prompt command-color">ongera@cli-portfolio:~$</span>

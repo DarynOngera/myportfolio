@@ -33,7 +33,6 @@ body {
     flex-grow: 1; /* Allow it to grow and shrink within the body's flex context */
     max-height: calc(100vh - 20px); /* Ensure it fits within viewport with a small margin */
     min-height: 250px; /* Slightly reduced min-height for very small screens */
-    margin: auto;
   }
 }
 
@@ -59,6 +58,7 @@ body {
   height: 80vh; /* Responsive height */
   min-height: 400px; /* Minimum height for usability */
   min-width: 300px; /* Minimum width for usability */
+  margin: auto; /* Center the container for all screens */
 }
 
 .terminal-header {
@@ -169,4 +169,11 @@ body {
 
 .error-color {
   color: var(--error-color);
+}
+
+.favicon {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  margin-right: 5px;
 }
