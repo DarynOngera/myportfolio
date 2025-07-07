@@ -12,6 +12,31 @@ body {
   min-height: 100vh;
 }
 
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  .terminal-container {
+    width: 95%;
+    height: 90vh;
+  }
+}
+
+@media (max-width: 480px) and (orientation: portrait) {
+  body {
+    font-size: 12px;
+  }
+
+  .terminal-container {
+    width: 98%;
+    flex-grow: 1; /* Allow it to grow and shrink within the body's flex context */
+    max-height: calc(100vh - 20px); /* Ensure it fits within viewport with a small margin */
+    min-height: 250px; /* Slightly reduced min-height for very small screens */
+    margin: auto;
+  }
+}
+
 :root {
   --background-color: #0d1117; /* Dark GitHub-like background */
   --text-color: #c9d1d9; /* Light gray text */
