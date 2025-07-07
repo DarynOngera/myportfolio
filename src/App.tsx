@@ -12,7 +12,7 @@ const App: React.FC = () => {
     'Booting up...',
     'Connecting to secure server...',
     'Connection established.',
-    'Welcome to my terminal. Type `help` for a list of commands.',
+    'Welcome to my terminal. Type `help` for a list of commands, or `about`, `projects`, `skills`, `contact` to learn more about me.',
   ], []);
 
   const bootedRef = useRef(false);
