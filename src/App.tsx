@@ -1,11 +1,15 @@
 import React, { useState, useEffect, useRef, useMemo, JSX } from 'react';
 import './index.css';
+import AsteroidsGame from './AsteroidsGame';
+import Terminal from './components/Terminal';
+import data from './data.json';
 
 const App: React.FC = () => {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState<(string | JSX.Element)[]>([]);
   const [booting, setBooting] = useState(true);
   const [commandExecuted, setCommandExecuted] = useState(false);
+  const [gameActive, setGameActive] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const bootSequence = useMemo(() => [
@@ -31,6 +35,11 @@ const App: React.FC = () => {
     }
   }, [booting, bootSequence]);
 
+  const handleGameExit = () => {
+    setGameActive(false);
+    setOutput(prevOutput => [...prevOutput, 'Exited Asteroids.']);
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
@@ -42,46 +51,40 @@ const App: React.FC = () => {
 
       switch (input.trim().toLowerCase()) {
         case 'help':
-          newOutput.push('Available commands: help, about, projects, skills, contact, clear');
+          newOutput.push('Available commands: help, about, projects, skills, contact, clear, asteroids');
           break;
         case 'about':
-          newOutput.push('I am a Computer Science major at Strathmore University, deeply passionate about cybersecurity, distributed systems, software development, and AI/ML.');
-          newOutput.push('');
-          newOutput.push('Outside of academics, I\'m an avid sportsman, actively involved in rugby and hitting the gym.');
-          newOutput.push('');
-          newOutput.push('My defining characteristic is grit; you could say it\'s my middle name.');
+          newOutput.push(...data.about);
           break;
         case 'projects':
-          newOutput.push('Here are some of my projects:');
-          newOutput.push('- Bulk bank account validator: Developed a robust bulk bank account validator capable of processing large volumes of data from JSON, XML, and XLS formats. It securely validates accounts, tokenizing and encrypting sensitive information, and delivers detailed valid/invalid reports via email in the original input formats. The system is engineered for high performance, utilizing batch and parallel processing to efficiently handle asynchronous requests.');
-          newOutput.push(''); // Add an empty line for paragraph separation
-          newOutput.push('- TutorMtaani: An AI-powered tutor that curates personalized learning paths based on user interests, proficiency, and preferred study modes. It provides relevant resources (articles, videos, course links) and is accessible via WhatsApp, a web application, and a command-line interface.');
-          newOutput.push(''); // Add an empty line for paragraph separation
-          newOutput.push('- ML-powered SOC Threat Detection Assistant: Leverages machine learning (LSTM-autoencoder) for anomaly-based detection of novel, signature-less attacks (e.g., \'low and slow\'). Integrates NLP for contextualized threat insights. (In progress)');
+          newOutput.push(...data.projects);
           break;
         case 'skills':
-          newOutput.push('As a 10x vibe coder, my skills are always compiling good times!');
-          newOutput.push('');
-          newOutput.push('Programming Languages: Python, JavaScript, PHP, C++, Bash Scripting.');
-          newOutput.push('');
-          newOutput.push('Frameworks: React, Flutter, Laravel.');
-          newOutput.push('');
-          newOutput.push('Skills: System Administration, Cloud Platforms (AWS, Azure), Mobile Development, Web Technologies, Prompt Engineering.');
+          newOutput.push(...data.skills);
           break;
         case 'contact':
-          newOutput.push(
-            <>
-              You can reach me at: <img src="https://www.google.com/s2/favicons?domain=gmail.com" className="favicon" alt="Gmail icon" /> <a href="mailto:ongeradaryn@gmail.com" target="_blank" rel="noopener noreferrer" className="contact-link">ongeradaryn@gmail.com</a>
-            </>
-          );
-          newOutput.push(
-            <>
-              My GitHub: <img src="https://github.com/favicon.ico" className="favicon" alt="GitHub icon" /> <a href="https://github.com/DarynOngera" target="_blank" rel="noopener noreferrer" className="contact-link">DarynOngera</a>
-            </>
-          );
+            data.contact.forEach(item => {
+                if (item.type === 'email') {
+                    newOutput.push(
+                        <>
+                          You can reach me at: <img src="https://www.google.com/s2/favicons?domain=gmail.com" className="favicon" alt="Gmail icon" /> <a href={`mailto:${item.value}`} target="_blank" rel="noopener noreferrer" className="contact-link">{item.value}</a>
+                        </>
+                    );
+                } else if (item.type === 'github') {
+                    newOutput.push(
+                        <>
+                          My GitHub: <img src="https://github.com/favicon.ico" className="favicon" alt="GitHub icon" /> <a href={`https://github.com/${item.value}`} target="_blank" rel="noopener noreferrer" className="contact-link">{item.value}</a>
+                        </>
+                    );
+                }
+            });
           break;
         case 'clear':
           newOutput = [...bootSequence];
+          break;
+        case 'asteroids':
+          setGameActive(true);
+          newOutput.push('Starting Asteroids...');
           break;
         default:
           newOutput.push(`Command not found: ${input}. Type 'help' for a list of commands.`);
@@ -109,47 +112,20 @@ const App: React.FC = () => {
     }
   }, [output, commandExecuted]);
 
+  if (gameActive) {
+    return <AsteroidsGame onExit={handleGameExit} />;
+  }
+
   return (
     <div className="App">
-      <div className="terminal-container">
-        <div className="terminal-header">
-          <div className="terminal-buttons">
-            <span className="terminal-button close"></span>
-            <span className="terminal-button minimize"></span>
-            <span className="terminal-button maximize"></span>
-          </div>
-          <div className="terminal-title">Portfolio</div>
-        </div>
-        <div className="terminal-body">
-          <div id="terminal-output" className="terminal-output">
-            {output.map((line, index) => (
-              <React.Fragment key={index}>
-                {typeof line === 'string' ? (
-                  <span className={index % 2 === 0 ? 'output-color' : 'secondary-output-color'}>{line}</span>
-                ) : (
-                  line
-                )}
-                <br />
-              </React.Fragment>
-            ))}
-          </div>
-          {!booting && (
-            <div className="terminal-input-line">
-              <span className="terminal-prompt command-color">ongera@cli-portfolio:~$</span>
-              <input
-                ref={inputRef}
-                type="text"
-                className="terminal-input"
-                value={input}
-                onChange={handleInputChange}
-                onKeyDown={handleInputKeyDown}
-                disabled={booting}
-                autoFocus
-              />
-            </div>
-          )}
-        </div>
-      </div>
+        <Terminal 
+            output={output} 
+            input={input} 
+            booting={booting} 
+            inputRef={inputRef} 
+            handleInputChange={handleInputChange} 
+            handleInputKeyDown={handleInputKeyDown} 
+        />
     </div>
   );
 };

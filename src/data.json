@@ -1,0 +1,36 @@
+{
+    "about": [
+        "I am a Computer Science major at Strathmore University, deeply passionate about cybersecurity, distributed systems, software development, and AI/ML.",
+        "",
+        "Outside of academics, I'm an avid sportsman, actively involved in rugby and hitting the gym.",
+        "",
+        "My defining characteristic is grit; you could say it's my middle name."
+    ],
+    "projects": [
+        "Here are some of my projects:",
+        "- Bulk bank account validator: Developed a robust bulk bank account validator capable of processing large volumes of data from JSON, XML, and XLS formats. It securely validates accounts, tokenizing and encrypting sensitive information, and delivers detailed valid/invalid reports via email in the original input formats. The system is engineered for high performance, utilizing batch and parallel processing to efficiently handle asynchronous requests.",
+        "",
+        "- TutorMtaani: An AI-powered tutor that curates personalized learning paths based on user interests, proficiency, and preferred study modes. It provides relevant resources (articles, videos, course links) and is accessible via WhatsApp, a web application, and a command-line interface.",
+        "",
+        "- ML-powered SOC Threat Detection Assistant: Leverages machine learning (LSTM-autoencoder) for anomaly-based detection of novel, signature-less attacks (e.g., 'low and slow'). Integrates NLP for contextualized threat insights. (In progress)"
+    ],
+    "skills": [
+        "As a 10x vibe coder, my skills are always compiling good times!",
+        "",
+        "Programming Languages: Python, JavaScript, PHP, C++, Bash Scripting.",
+        "",
+        "Frameworks: React, Flutter, Laravel.",
+        "",
+        "Skills: System Administration, Cloud Platforms (AWS, Azure), Mobile Development, Web Technologies, Prompt Engineering."
+    ],
+    "contact": [
+        {
+            "type": "email",
+            "value": "ongeradaryn@gmail.com"
+        },
+        {
+            "type": "github",
+            "value": "DarynOngera"
+        }
+    ]
+}
