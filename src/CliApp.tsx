@@ -7,7 +7,6 @@ import data from './data.json';
 const CliApp: React.FC = () => {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState<(string | JSX.Element)[]>([]);
-  const [booting, setBooting] = useState(false);
   const [commandExecuted, setCommandExecuted] = useState(false);
   const [gameActive, setGameActive] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -30,7 +29,7 @@ const CliApp: React.FC = () => {
   };
 
   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && !booting) {
+    if (e.key === 'Enter') {
       setCommandExecuted(true);
       let newOutput = [...output, `> ${input}`];
 
@@ -86,10 +85,10 @@ const CliApp: React.FC = () => {
   };
 
   useEffect(() => {
-    if (!booting && inputRef.current) {
+    if (inputRef.current) {
       inputRef.current.focus();
     }
-  }, [booting, output]);
+  }, [output]);
 
   useEffect(() => {
     if (commandExecuted) {
@@ -110,7 +109,6 @@ const CliApp: React.FC = () => {
         <Terminal 
             output={output} 
             input={input} 
-            booting={booting} 
             inputRef={inputRef} 
             handleInputChange={handleInputChange} 
             handleInputKeyDown={handleInputKeyDown} 

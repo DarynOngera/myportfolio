@@ -3,13 +3,12 @@ import React from 'react';
 interface TerminalProps {
     output: (string | React.ReactElement)[];
     input: string;
-    booting: boolean;
     inputRef: React.RefObject<HTMLInputElement | null>;
     handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleInputKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-const Terminal: React.FC<TerminalProps> = ({ output, input, booting, inputRef, handleInputChange, handleInputKeyDown }) => {
+const Terminal: React.FC<TerminalProps> = ({ output, input, inputRef, handleInputChange, handleInputKeyDown }) => {
     return (
         <div className="terminal-container">
             <div className="terminal-header">
@@ -33,21 +32,18 @@ const Terminal: React.FC<TerminalProps> = ({ output, input, booting, inputRef, h
                         </React.Fragment>
                     ))}
                 </div>
-                {!booting && (
-                    <div className="terminal-input-line">
-                        <span className="terminal-prompt command-color">ongera@cli-portfolio:~$</span>
-                        <input
-                            ref={inputRef}
-                            type="text"
-                            className="terminal-input"
-                            value={input}
-                            onChange={handleInputChange}
-                            onKeyDown={handleInputKeyDown}
-                            disabled={booting}
-                            autoFocus
-                        />
-                    </div>
-                )}
+                <div className="terminal-input-line">
+                    <span className="terminal-prompt command-color">ongera@cli-portfolio:~$</span>
+                    <input
+                        ref={inputRef}
+                        type="text"
+                        className="terminal-input"
+                        value={input}
+                        onChange={handleInputChange}
+                        onKeyDown={handleInputKeyDown}
+                        autoFocus
+                    />
+                </div>
             </div>
         </div>
     );
