@@ -1,5 +1,5 @@
 import React from 'react';
-import data from '../data.json';
+
 
 interface SkillsAppProps {
   skillsData: { category: string; items: string[] }[];

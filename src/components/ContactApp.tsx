@@ -1,6 +1,6 @@
 import React from 'react';
 import { EmailIcon, GithubIcon } from './Window'; // Re-using icons from Window.tsx
-import data from '../data.json';
+
 
 interface ContactAppProps {
   contactData: { type: string; value: string }[];

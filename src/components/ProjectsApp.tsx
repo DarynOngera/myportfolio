@@ -1,5 +1,5 @@
 import React from 'react';
-import data from '../data.json';
+
 
 interface ProjectsAppProps {
   projectsData: { name: string; description: string; link: string }[];
