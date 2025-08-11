@@ -48,7 +48,13 @@ const CliApp: React.FC = () => {
           });
           break;
         case 'skills':
-          newOutput.push(...data.skills);
+          data.skills.forEach(category => {
+            newOutput.push(`${category.category}:`);
+            category.items.forEach(skill => {
+              newOutput.push(`  - ${skill}`);
+            });
+            newOutput.push("");
+          });
           break;
         case 'contact':
             data.contact.forEach(item => {

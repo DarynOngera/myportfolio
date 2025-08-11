@@ -24,13 +24,18 @@
         }
     ],
     "skills": [
-        "As a 10x vibe coder, my skills are always compiling good times!",
-        "",
-        "Programming Languages: Python(2 years), JavaScript(2 years), PHP, C++, java.",
-        "",
-        "Frameworks: Next, Flutter, Laravel.",
-        "",
-        "Skills: System Architecture,Distributed Systems, CyberSecurity, AI/ML, Software Engineering(Web and Mobile apps)."
+        {
+            "category": "Programming Languages",
+            "items": ["Python (2 years)", "JavaScript (2 years)", "PHP", "C++", "Java"]
+        },
+        {
+            "category": "Frameworks",
+            "items": ["Next.js", "Flutter", "Laravel"]
+        },
+        {
+            "category": "Skills",
+            "items": ["System Architecture", "Distributed Systems", "Cybersecurity", "AI/ML", "Software Engineering (Web and Mobile apps)"]
+        }
     ],
     "contact": [
         {

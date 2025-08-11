@@ -12,6 +12,17 @@ body {
   min-height: 100vh;
 }
 
+@media (max-width: 1024px) {
+  body {
+    font-size: 15px;
+  }
+
+  .terminal-container {
+    width: 90%;
+    height: 85vh;
+  }
+}
+
 @media (max-width: 768px) {
   body {
     font-size: 14px;
@@ -20,19 +31,35 @@ body {
   .terminal-container {
     width: 95%;
     height: 90vh;
+    min-height: 300px;
   }
 }
 
-@media (max-width: 480px) and (orientation: portrait) {
+@media (max-width: 480px) {
   body {
     font-size: 12px;
   }
 
   .terminal-container {
     width: 98%;
-    flex-grow: 1; /* Allow it to grow and shrink within the body's flex context */
-    max-height: calc(100vh - 20px); /* Ensure it fits within viewport with a small margin */
-    min-height: 250px; /* Slightly reduced min-height for very small screens */
+    height: 95vh;
+    min-height: 200px;
+  }
+
+  .terminal-header {
+    padding: 8px;
+  }
+
+  .terminal-title {
+    font-size: 0.8em;
+  }
+
+  .terminal-body {
+    padding: 8px;
+  }
+
+  .terminal-input-line {
+    font-size: 0.9em;
   }
 }
 

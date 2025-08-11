@@ -25,26 +25,32 @@
 .icon-image {
   width: 60px;
   height: 60px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 2px solid #4d4d4d;
+  background-color: rgba(0, 122, 204, 0.1); /* Primary Accent with transparency */
+  border: 2px solid #007ACC; /* Primary Accent */
   border-radius: 10px;
   font-size: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #d9d9d9;
+  color: #D9D9D9;
 }
 
 .window {
   position: absolute;
-  width: 500px;
-  height: 350px;
-  background-color: #2b2b2b;
-  border: 2px solid #4d4d4d;
+  width: 700px;
+  height: 500px;
+  background-color: #2B2B2B;
+  border: 2px solid #3C3C3C;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
   border-radius: 10px;
   overflow: hidden;
   animation: fadeIn 0.3s ease-in-out;
+}
+
+.window.dragging {
+  cursor: grabbing;
+  box-shadow: 0 0 25px rgba(0, 122, 204, 0.7); /* Primary Accent glow */
+  transform: scale(1.01);
 }
 
 @keyframes fadeIn {
@@ -97,19 +103,22 @@
 
 .landing-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #000;
-  color: #0f0;
-  font-family: 'Courier New', Courier, monospace;
+  background-color: #1A1A1A;
+  color: #D9D9D9;
+  font-family: 'Noto Sans', sans-serif;
   text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .landing-box {
   width: 200px;
   height: 200px;
-  border: 2px solid #0f0;
+  border: 2px solid #007ACC;
   margin: 20px;
   display: flex;
   flex-direction: column;
@@ -117,32 +126,127 @@
   align-items: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  color: #0f0;
+  color: #D9D9D9;
 }
 
 .landing-box:hover {
-  background-color: #0f0;
-  color: #000;
+  background-color: #007ACC;
+  color: #1A1A1A;
+}
+
+.landing-box h1 {
+  font-size: 2em;
+}
+
+.landing-box p {
+  font-size: 1em;
+}
+
+@media (max-width: 768px) {
+  .landing-container {
+    font-size: 0.9em;
+  }
+
+  .landing-box {
+    width: 150px;
+    height: 150px;
+    margin: 10px;
+  }
+
+  .landing-box h1 {
+    font-size: 1.8em;
+  }
+
+  .landing-box p {
+    font-size: 0.9em;
+  }
+
+  .boot-screen {
+    width: 90%;
+  }
+
+  .boot-screen p {
+    font-size: 0.9em;
+  }
+
+  .choice-container {
+    flex-direction: column;
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-container {
+    font-size: 0.8em;
+  }
+
+  .landing-box {
+    width: 120px;
+    height: 120px;
+    margin: 5px;
+  }
+
+  .landing-box h1 {
+    font-size: 1.5em;
+  }
+
+  .landing-box p {
+    font-size: 0.8em;
+  }
+
+  .boot-screen {
+    width: 95%;
+  }
+
+  .boot-screen p {
+    font-size: 0.8em;
+  }
 }
 
 .back-button {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #fff;
-    color: #000;
+    background-color: #007ACC;
+    color: #D9D9D9;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .boot-screen {
   width: 80%;
+  color: #D9D9D9;
+  font-family: 'Roboto Mono', monospace;
 }
 
 .boot-screen p {
   margin: 0;
   line-height: 1.5;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 5px;
+  background-color: #3C3C3C;
+  margin-top: 10px;
+  border-radius: 2.5px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #007ACC;
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+.post-boot-message {
+  margin-top: 20px;
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+  animation-delay: 1s;
 }
 
 .choice-container {
@@ -157,7 +261,7 @@
   left: 0;
   width: 100%;
   height: 40px;
-  background-color: #333;
+  background-color: #1A1A1A;
   display: flex;
   align-items: center;
   padding: 0 10px;
@@ -165,17 +269,17 @@
 }
 
 .start-button {
-  background-color: #008000;
-  color: white;
+  background-color: #007ACC;
+  color: #D9D9D9;
   padding: 5px 15px;
   cursor: pointer;
-  border: 2px solid #fff;
+  border: 2px solid #007ACC;
   border-radius: 5px;
 }
 
 .clock {
   margin-left: auto;
-  color: white;
+  color: #D9D9D9;
 }
 
 .start-menu {
@@ -183,9 +287,9 @@
   bottom: 40px;
   left: 0;
   width: 200px;
-  background-color: #333;
-  border: 2px solid #fff;
-  color: white;
+  background-color: #2B2B2B;
+  border: 2px solid #3C3C3C;
+  color: #D9D9D9;
 }
 
 .start-menu ul {
@@ -200,7 +304,7 @@
 }
 
 .start-menu li:hover {
-  background-color: #555;
+  background-color: #3C3C3C;
 }
 
 .window-buttons {
@@ -210,12 +314,17 @@
 .window-button, .close-button {
   width: 20px;
   height: 20px;
-  border: 1px solid #000;
+  border: 1px solid #3C3C3C;
   margin-left: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  color: #D9D9D9;
+}
+
+.window-button:hover, .close-button:hover {
+  background-color: #3C3C3C;
 }
 
 .resize-handle {
@@ -225,4 +334,92 @@
   width: 10px;
   height: 10px;
   cursor: se-resize;
+  background-color: #007ACC;
+}
+
+@media (max-width: 768px) {
+  .icons {
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .icon-image {
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+  }
+
+  .window {
+    width: 90vw;
+    height: 80vh;
+    top: 5vh !important;
+    left: 5vw !important;
+    transform: none !important;
+  }
+
+  .taskbar {
+    height: 30px;
+    font-size: 0.8em;
+  }
+
+  .start-button {
+    padding: 3px 10px;
+  }
+
+  .clock {
+    font-size: 0.8em;
+  }
+
+  .start-menu {
+    width: 150px;
+    bottom: 30px;
+  }
+
+  .start-menu li {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .icons {
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    gap: 5px;
+    padding: 5px;
+  }
+
+  .icon-image {
+    width: 40px;
+    height: 40px;
+    font-size: 25px;
+  }
+
+  .window {
+    width: 95vw;
+    height: 85vh;
+    top: 2.5vh !important;
+    left: 2.5vw !important;
+  }
+
+  .taskbar {
+    height: 25px;
+    font-size: 0.7em;
+  }
+
+  .start-button {
+    padding: 2px 8px;
+  }
+
+  .clock {
+    font-size: 0.7em;
+  }
+
+  .start-menu {
+    width: 120px;
+    bottom: 25px;
+  }
+
+  .start-menu li {
+    padding: 5px;
+  }
 }
