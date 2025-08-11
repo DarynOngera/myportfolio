@@ -22,7 +22,13 @@ const GuiApp: React.FC<GuiAppProps> = ({ onBack }) => {
   };
 
   const closeWindow = (id: string) => {
-    setWindows(prevWindows => prevWindows.filter(w => w.id !== id));
+    setWindows(prevWindows =>
+      prevWindows.map(w => (w.id === id ? { ...w, closing: true } : w))
+    );
+
+    setTimeout(() => {
+      setWindows(prevWindows => prevWindows.filter(w => w.id !== id));
+    }, 300);
   };
 
   return (
