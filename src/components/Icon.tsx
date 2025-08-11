@@ -3,11 +3,10 @@ import React from 'react';
 interface IconProps {
   id: string;
   title: string;
-  content: any;
-  onOpen: (id: string, title: string, content: any) => void;
+  onOpen: (id: string, title: string) => void;
 }
 
-const Icon: React.FC<IconProps> = ({ id, title, content, onOpen }) => {
+const Icon: React.FC<IconProps> = ({ id, title, onOpen }) => {
   const getIcon = () => {
     switch (id) {
       case 'about':
@@ -24,7 +23,7 @@ const Icon: React.FC<IconProps> = ({ id, title, content, onOpen }) => {
   };
 
   return (
-    <div className="icon" onClick={() => onOpen(id, title, content)}>
+    <div className="icon" onClick={() => onOpen(id, title)}>
       <div className="icon-image">{getIcon()}</div>
       <p>{title}</p>
     </div>
