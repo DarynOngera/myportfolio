@@ -26,7 +26,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onSelectView }) => {
 
   return (
     <div className="landing-container" style={{ backgroundColor: '#1a1a1a', color: '#d9d9d9', fontFamily: "'Noto Sans', sans-serif", display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', padding: '20px', boxSizing: 'border-box', overflow: 'hidden' }}>
-      <div style={{ display: 'flex', width: '100%', maxWidth: '1100px', gap: '20px' }}>
+      <div className="landing-content">
 
         {/* Left Column: About Me & Choices */}
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>

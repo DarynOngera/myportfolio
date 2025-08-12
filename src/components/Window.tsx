@@ -29,8 +29,16 @@ interface WindowProps {
 }
 
 const Window: React.FC<WindowProps> = ({ id, title, onClose, closing, zIndex, onFocus, children, onMinimize, onMaximize, onRestore, isMinimized, isMaximized }) => {
-  const [position, setPosition] = useState({ x: 150, y: 100 });
-  const [size, setSize] = useState({ width: 700, height: 500 });
+  const isMobile = window.innerWidth < 768; // Define mobile breakpoint
+
+  const [position, setPosition] = useState(() => ({
+    x: isMobile ? 0 : 150,
+    y: isMobile ? 0 : 100,
+  }));
+  const [size, setSize] = useState(() => ({
+    width: isMobile ? window.innerWidth : 700,
+    height: isMobile ? window.innerHeight - 40 : 500, // Account for taskbar
+  }));
   const [isDragging, setIsDragging] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
   const dragStartPos = useRef({ x: 0, y: 0 });
@@ -38,8 +46,24 @@ const Window: React.FC<WindowProps> = ({ id, title, onClose, closing, zIndex, on
   const lastSize = useRef({ width: 0, height: 0 });
   const lastPosition = useRef({ x: 0, y: 0 });
 
+  // Initialize isMaximized based on screen size
+  const [initialMaximized, setInitialMaximized] = useState(isMobile);
+
+  // Effect to handle window resize for initial maximized state
+  React.useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setInitialMaximized(true);
+      } else {
+        setInitialMaximized(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const handleMouseDown = (e: React.MouseEvent) => {
-    if (isMaximized || isMinimized) return; // Prevent dragging if maximized or minimized
+    if (isMaximized || isMinimized || isMobile) return; // Prevent dragging if maximized, minimized, or on mobile
     setIsDragging(true);
     onFocus(id); // Bring to front on drag start
     dragStartPos.current = {
@@ -69,7 +93,7 @@ const Window: React.FC<WindowProps> = ({ id, title, onClose, closing, zIndex, on
   };
 
   const handleResizeMouseDown = (e: React.MouseEvent) => {
-    if (isMaximized || isMinimized) return; // Prevent resizing if maximized or minimized
+    if (isMaximized || isMinimized || isMobile) return; // Prevent resizing if maximized, minimized, or on mobile
     setIsResizing(true);
     resizeStartPos.current = {
       x: e.clientX - size.width,
@@ -84,15 +108,16 @@ const Window: React.FC<WindowProps> = ({ id, title, onClose, closing, zIndex, on
   const handleMaximizeRestoreClick = () => {
     if (isMaximized) {
       onRestore(id);
-      setPosition(lastPosition.current);
-      setSize(lastSize.current);
+      // Restore to last known size/position, or a default if not available
+      setPosition(lastPosition.current.x ? lastPosition.current : { x: 150, y: 100 });
+      setSize(lastSize.current.width ? lastSize.current : { width: 700, height: 500 });
     } else {
       lastPosition.current = position;
       lastSize.current = size;
       onMaximize(id);
-      // Maximize to full screen (adjust as needed for taskbar etc.)
+      // Maximize to full screen, accounting for taskbar
       setPosition({ x: 0, y: 0 });
-      setSize({ width: window.innerWidth, height: window.innerHeight });
+      setSize({ width: window.innerWidth, height: window.innerHeight - 40 }); // Assuming 40px taskbar
     }
   };
 
@@ -103,11 +128,11 @@ const Window: React.FC<WindowProps> = ({ id, title, onClose, closing, zIndex, on
   return (
     <div
       className={windowClassName}
-      style={{ 
-        top: isMaximized ? 0 : position.y,
-        left: isMaximized ? 0 : position.x,
-        width: isMaximized ? '100vw' : size.width,
-        height: isMaximized ? '100vh' : size.height,
+      style={{
+        top: (isMaximized || initialMaximized) ? 0 : position.y,
+        left: (isMaximized || initialMaximized) ? 0 : position.x,
+        width: (isMaximized || initialMaximized) ? '100vw' : size.width,
+        height: (isMaximized || initialMaximized) ? `calc(100vh - 40px)` : size.height, // Account for taskbar
         zIndex: zIndex,
         display: isMinimized ? 'none' : 'block' // Hide if minimized
       }}

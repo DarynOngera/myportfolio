@@ -1,243 +1,84 @@
-html, body {
-  height: 100%;
-}
-
 body {
-  background-color: var(--background-color);
-  color: var(--text-color);
-  font-family: 'Noto Sans', sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
   margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@media (max-width: 1024px) {
-  body {
-    font-size: 15px;
-  }
-
-  .terminal-container {
-    width: 90%;
-    height: 85vh;
-  }
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
 
-@media (max-width: 768px) {
-  body {
-    font-size: 14px;
-  }
-
-  .terminal-container {
-    width: 95%;
-    height: 90vh;
-    min-height: 300px;
-  }
-}
-
-@media (max-width: 480px) {
-  body {
-    font-size: 12px;
-  }
-
-  .terminal-container {
-    width: 98%;
-    height: 95vh;
-    min-height: 200px;
-  }
-
-  .terminal-header {
-    padding: 8px;
-  }
-
-  .terminal-title {
-    font-size: 0.8em;
-  }
-
-  .terminal-body {
-    padding: 8px;
-  }
-
-  .terminal-input-line {
-    font-size: 0.9em;
-  }
-}
-
-:root {
-  --background-color: #1a1a1a; /* Dark background */
-  --text-color: #d9d9d9; /* Light gray text */
-  --command-color: #66c2ff; /* Blue for commands */
-  --output-color: #d9d9d9; /* Light gray for general output */
-  --secondary-output-color: #a6e22e; /* Green for secondary output */
-  --error-color: #f92672; /* Pink/Red for errors */
-}
-
-.terminal-container {
-  background-color: var(--background-color);
-  border: 1px solid #4d4d4d;
-  border-radius: 8px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  width: 90%; /* More flexible width */
-  max-width: 900px;
-  height: 80vh; /* Responsive height */
-  min-height: 400px; /* Minimum height for usability */
-  min-width: 300px; /* Minimum width for usability */
-  margin: auto; /* Center the container for all screens */
-}
-
-.terminal-header {
-  background-color: #282828; /* Slightly darker header */
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.terminal-buttons {
-  display: flex;
-  gap: 5px;
-}
-
-.terminal-button {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-}
-
-.terminal-button.close {
-  background-color: #ff5f56;
-}
-
-.terminal-button.minimize {
-  background-color: #ffbd2e;
-}
-
-.terminal-button.maximize {
-  background-color: #27c93f;
-}
-
-.terminal-title {
-  color: #aaa;
-  margin-left: 10px;
-  font-size: 0.9em;
-}
-
-.terminal-body {
-  flex-grow: 1;
-  padding: 10px;
-  overflow-y: auto;
-  position: relative; /* For absolute positioning of input */
-}
-
-.terminal-output {
-  flex: 1;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  overflow-x: hidden;
-  overflow-y: auto; /* Enable scrolling for output */
-  padding-right: 10px;
-  /* padding-bottom: 20px; Space for the input line */
-}
-
-.terminal-input-line {
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-
-.terminal-prompt {
-  color: var(--command-color);
-  margin-right: 5px;
-}
-
-.terminal-input {
-  background-color: transparent;
-  border: none;
-  color: var(--text-color); /* Make typed characters visible */
-  caret-color: var(--command-color); /* Blinking cursor color */
-  font-family: inherit;
-  font-size: inherit;
-  outline: none;
-  flex-grow: 1; /* Allow input to take remaining space */
-  padding: 0;
-  margin: 0;
-}
-
-.cursor {
-  /* This class will no longer be directly used for the input caret, but kept for other blinking elements if needed */
-  display: inline-block;
-  width: 8px;
-  height: 1em;
-  background-color: var(--command-color);
-  vertical-align: middle;
-  animation: blink 1s step-end infinite;
-}
-
-@keyframes blink {
-  to {
-    visibility: hidden;
-  }
-}
-
-.command-color {
-  color: var(--command-color);
-}
-
-.output-color {
-  color: var(--output-color);
-}
-
-.secondary-output-color {
-  color: var(--secondary-output-color);
-}
-
-.error-color {
-  color: var(--error-color);
-}
-
-.favicon {
-  width: 16px;
-  height: 16px;
-  vertical-align: middle;
-  margin-right: 5px;
-}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
 
 .highlight {
-  color: var(--command-color); /* Blue */
+  color: #007ACC;
+}
+
+.large-text {
+  font-size: 2em;
   font-weight: bold;
+}
+
+.info-text {
+  font-size: 1em;
 }
 
 .bold-text {
   font-weight: bold;
 }
 
-.italic-text {
-  font-style: italic;
-}
-
-.underline-text {
-  text-decoration: underline;
-}
-
 .small-text {
   font-size: 0.9em;
 }
 
-.large-text {
-  font-size: 1.1em;
+.landing-box {
+  border: 2px solid #007ACC;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #d9d9d9;
 }
 
-.success-text {
-  color: var(--secondary-output-color); /* Green */
+.landing-box:hover {
+  background-color: #007ACC;
+  color: #1a1a1a;
 }
 
-.info-text {
-  color: var(--output-color); /* Light gray */
+/* Landing Page Responsiveness */
+.landing-content {
+  display: flex;
+  width: 100%;
+  max-width: 1100px;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .landing-content {
+    flex-direction: column;
+    gap: 40px; /* Increased gap for better spacing when stacked */
+  }
+
+  .landing-box {
+    width: 120px !important; /* Adjust size for smaller screens */
+    height: 120px !important;
+  }
+
+  .landing-box h1 {
+    font-size: 1.8em !important;
+  }
+
+  .landing-box p {
+    font-size: 0.8em !important;
+  }
+
+  .landing-container {
+    padding: 10px !important; /* Reduce padding on very small screens */
+  }
 }
