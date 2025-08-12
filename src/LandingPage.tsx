@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import './index.css'; // Import index.css for the new classes
 interface LandingPageProps {
   onSelectView: (view: 'cli' | 'gui') => void;
 }
 
 const LandingPage: React.FC<LandingPageProps> = ({ onSelectView }) => {
-  const [bio, setBio] = useState<string>(
+  const [bio] = useState<string>(
     "I am a Computer Science major at Strathmore University, deeply passionate about cybersecurity, distributed systems, software development, and AI/ML. Outside of academics, I'm an avid sportsman, actively involved in rugby and hitting the gym. My defining characteristic is grit; you could say it's my middle name."
   );
 
