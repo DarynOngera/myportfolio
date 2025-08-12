@@ -50,14 +50,17 @@
 
 .window {
   position: absolute;
-  width: 700px;
-  height: 500px;
+  width: 90vw; /* Responsive width */
+  height: 80vh; /* Responsive height */
+  max-width: 900px; /* Max width for larger screens */
+  max-height: 600px; /* Max height for larger screens */
   background-color: #2B2B2B;
   border: 1px solid #3C3C3C; /* Lighter border */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* Softer shadow */
   border-radius: 8px; /* Slightly less rounded */
   overflow: hidden;
   animation: fadeIn 0.3s ease-in-out;
+  box-sizing: border-box; /* Include padding and border in dimensions */
 }
 
 .window.dragging {
@@ -547,9 +550,9 @@
   .window {
     width: 90vw;
     height: 80vh;
-    top: 5vh !important;
-    left: 5vw !important;
-    transform: none !important;
+    top: 5vh; /* Removed !important */
+    left: 5vw; /* Removed !important */
+    transform: none; /* Removed !important */
   }
 
   .taskbar {
@@ -591,8 +594,8 @@
   .window {
     width: 95vw;
     height: 85vh;
-    top: 2.5vh !important;
-    left: 2.5vw !important;
+    top: 2.5vh; /* Removed !important */
+    left: 2.5vw; /* Removed !important */
   }
 
   .taskbar {

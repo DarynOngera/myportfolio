@@ -77,11 +77,13 @@
   border-radius: 5px;
   text-decoration: none;
   font-weight: bold;
-  transition: background-color 0.2s ease;
+  opacity: 0.6; /* Lightly appear */
+  transition: background-color 0.2s ease, opacity 0.2s ease; /* Add opacity to transition */
 }
 
 .project-item a.project-link:hover {
-  background-color: #005F99; /* Darker shade on hover */
+  opacity: 1; /* Solidify on hover */
+  background-color: #007ACC; /* Keep original color or adjust as needed */
   text-decoration: none;
 }
 
@@ -158,4 +160,9 @@
 
 .contact-app-content a:hover {
   text-decoration: underline;
+}
+
+.project-item a.project-link.clicked {
+  opacity: 1;
+  background-color: #007ACC; /* Ensure it's solid and primary accent */
 }

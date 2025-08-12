@@ -24,7 +24,7 @@ const ProjectsApp: React.FC<ProjectsAppProps> = ({ projectsData }) => {
           <h3>{project.name}</h3>
           <p>{project.description}</p>
           {expandedProject === project.name && (
-            <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-link">View Project on GitHub</a>
+            <a href={project.link} target="_blank" rel="noopener noreferrer" className={`project-link ${expandedProject === project.name ? 'clicked' : ''}`}>View Project on GitHub</a>
           )}
         </div>
       ))}
