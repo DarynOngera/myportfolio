@@ -1,3 +1,7 @@
+html, body {
+  height: 100%;
+}
+
 body {
   background-color: var(--background-color);
   color: var(--text-color);
@@ -203,4 +207,37 @@ body {
   height: 16px;
   vertical-align: middle;
   margin-right: 5px;
+}
+
+.highlight {
+  color: var(--command-color); /* Blue */
+  font-weight: bold;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+.italic-text {
+  font-style: italic;
+}
+
+.underline-text {
+  text-decoration: underline;
+}
+
+.small-text {
+  font-size: 0.9em;
+}
+
+.large-text {
+  font-size: 1.1em;
+}
+
+.success-text {
+  color: var(--secondary-output-color); /* Green */
+}
+
+.info-text {
+  color: var(--output-color); /* Light gray */
 }

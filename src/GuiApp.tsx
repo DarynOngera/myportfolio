@@ -45,7 +45,7 @@ const GuiApp: React.FC<GuiAppProps> = ({ onBack }) => {
 
       const newZIndex = maxZIndex + 1;
       setMaxZIndex(newZIndex);
-      return [...prevWindows, { id, title, component: appComponent, zIndex: newZIndex }];
+      return [...prevWindows, { id, title, component: appComponent, zIndex: newZIndex, isMinimized: false, isMaximized: false }];
     });
   };
 
@@ -54,7 +54,7 @@ const GuiApp: React.FC<GuiAppProps> = ({ onBack }) => {
       const newMaxZIndex = maxZIndex + 1;
       setMaxZIndex(newMaxZIndex);
       return prevWindows.map(w =>
-        w.id === id ? { ...w, zIndex: newMaxZIndex } : w
+        w.id === id ? { ...w, zIndex: newMaxZIndex, isMinimized: false } : w // Also unminimize on focus
       );
     });
   };
@@ -67,6 +67,24 @@ const GuiApp: React.FC<GuiAppProps> = ({ onBack }) => {
     setTimeout(() => {
       setWindows(prevWindows => prevWindows.filter(w => w.id !== id));
     }, 300);
+  };
+
+  const handleMinimize = (id: string) => {
+    setWindows(prevWindows =>
+      prevWindows.map(w => (w.id === id ? { ...w, isMinimized: true } : w))
+    );
+  };
+
+  const handleMaximize = (id: string) => {
+    setWindows(prevWindows =>
+      prevWindows.map(w => (w.id === id ? { ...w, isMaximized: true, isMinimized: false } : w))
+    );
+  };
+
+  const handleRestore = (id: string) => {
+    setWindows(prevWindows =>
+      prevWindows.map(w => (w.id === id ? { ...w, isMaximized: false, isMinimized: false } : w))
+    );
   };
 
   return (
@@ -86,6 +104,11 @@ const GuiApp: React.FC<GuiAppProps> = ({ onBack }) => {
           closing={w.closing}
           zIndex={w.zIndex}
           onFocus={focusWindow}
+          isMinimized={w.isMinimized}
+          isMaximized={w.isMaximized}
+          onMinimize={handleMinimize}
+          onMaximize={handleMaximize}
+          onRestore={handleRestore}
         >
           {w.component}
         </Window>

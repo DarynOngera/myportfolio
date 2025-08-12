@@ -45,12 +45,15 @@
   padding: 15px;
   margin-bottom: 0; /* Reset margin-bottom as gap handles spacing */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, height 0.3s ease; /* Added height transition */
+  cursor: pointer;
+  overflow: hidden; /* Hide overflow when not expanded */
 }
 
-.project-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 122, 204, 0.4); /* Primary Accent glow on hover */
+.project-item.expanded {
+  height: auto; /* Allow height to expand */
+  border-color: #A6E22E; /* Secondary accent when expanded */
+  box-shadow: 0 8px 16px rgba(0, 122, 204, 0.6); /* More pronounced glow when expanded */
 }
 
 .project-item h3 {
@@ -64,14 +67,22 @@
   margin-bottom: 10px;
 }
 
-.project-item a {
-  color: #007ACC;
+.project-item a.project-link {
+  display: block; /* Make link a block element */
+  margin-top: 10px;
+  text-align: center;
+  padding: 8px 12px;
+  background-color: #007ACC; /* Primary Accent background */
+  color: #D9D9D9;
+  border-radius: 5px;
   text-decoration: none;
   font-weight: bold;
+  transition: background-color 0.2s ease;
 }
 
-.project-item a:hover {
-  text-decoration: underline;
+.project-item a.project-link:hover {
+  background-color: #005F99; /* Darker shade on hover */
+  text-decoration: none;
 }
 
 /* Styles for SkillsApp */

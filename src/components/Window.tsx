@@ -21,17 +21,25 @@ interface WindowProps {
   zIndex: number;
   onFocus: (id: string) => void;
   children: React.ReactNode; // New prop for rendering content
+  onMinimize: (id: string) => void;
+  onMaximize: (id: string) => void;
+  onRestore: (id: string) => void;
+  isMinimized: boolean;
+  isMaximized: boolean;
 }
 
-const Window: React.FC<WindowProps> = ({ id, title, onClose, closing, zIndex, onFocus, children }) => {
+const Window: React.FC<WindowProps> = ({ id, title, onClose, closing, zIndex, onFocus, children, onMinimize, onMaximize, onRestore, isMinimized, isMaximized }) => {
   const [position, setPosition] = useState({ x: 150, y: 100 });
   const [size, setSize] = useState({ width: 700, height: 500 });
   const [isDragging, setIsDragging] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
   const dragStartPos = useRef({ x: 0, y: 0 });
   const resizeStartPos = useRef({ x: 0, y: 0 });
+  const lastSize = useRef({ width: 0, height: 0 });
+  const lastPosition = useRef({ x: 0, y: 0 });
 
   const handleMouseDown = (e: React.MouseEvent) => {
+    if (isMaximized || isMinimized) return; // Prevent dragging if maximized or minimized
     setIsDragging(true);
     onFocus(id); // Bring to front on drag start
     dragStartPos.current = {
@@ -61,6 +69,7 @@ const Window: React.FC<WindowProps> = ({ id, title, onClose, closing, zIndex, on
   };
 
   const handleResizeMouseDown = (e: React.MouseEvent) => {
+    if (isMaximized || isMinimized) return; // Prevent resizing if maximized or minimized
     setIsResizing(true);
     resizeStartPos.current = {
       x: e.clientX - size.width,
@@ -68,10 +77,40 @@ const Window: React.FC<WindowProps> = ({ id, title, onClose, closing, zIndex, on
     };
   };
 
+  const handleMinimizeClick = () => {
+    onMinimize(id);
+  };
+
+  const handleMaximizeRestoreClick = () => {
+    if (isMaximized) {
+      onRestore(id);
+      setPosition(lastPosition.current);
+      setSize(lastSize.current);
+    } else {
+      lastPosition.current = position;
+      lastSize.current = size;
+      onMaximize(id);
+      // Maximize to full screen (adjust as needed for taskbar etc.)
+      setPosition({ x: 0, y: 0 });
+      setSize({ width: window.innerWidth, height: window.innerHeight });
+    }
+  };
+
+  let windowClassName = `window ${closing ? 'window-exit' : ''}`;
+  if (isMinimized) windowClassName += ' minimized';
+  if (isMaximized) windowClassName += ' maximized';
+
   return (
     <div
-      className={`window ${closing ? 'window-exit' : ''}`}
-      style={{ top: position.y, left: position.x, width: size.width, height: size.height, zIndex: zIndex }}
+      className={windowClassName}
+      style={{ 
+        top: isMaximized ? 0 : position.y,
+        left: isMaximized ? 0 : position.x,
+        width: isMaximized ? '100vw' : size.width,
+        height: isMaximized ? '100vh' : size.height,
+        zIndex: zIndex,
+        display: isMinimized ? 'none' : 'block' // Hide if minimized
+      }}
       onMouseDown={() => onFocus(id)} // Bring to front on click
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
@@ -79,15 +118,17 @@ const Window: React.FC<WindowProps> = ({ id, title, onClose, closing, zIndex, on
       <div className="title-bar" onMouseDown={handleMouseDown}>
         <div className="title">{title}</div>
         <div className="window-buttons">
-          <div className="window-button">-</div>
-          <div className="window-button">[]</div>
+          <div className="window-button minimize" onClick={handleMinimizeClick}>-</div>
+          <div className="window-button maximize" onClick={handleMaximizeRestoreClick}>{isMaximized ? '[]' : '□'}</div>
           <div className="close-button" onClick={() => onClose(id)}>X</div>
         </div>
       </div>
       <div className="content">
         {children}
       </div>
-      <div className="resize-handle" onMouseDown={handleResizeMouseDown}></div>
+      {!isMaximized && !isMinimized && (
+        <div className="resize-handle" onMouseDown={handleResizeMouseDown}></div>
+      )}
     </div>
   );
 };

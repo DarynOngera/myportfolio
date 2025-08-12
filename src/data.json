@@ -9,7 +9,7 @@
     "projects": [
         {
             "name": "Bulk Bank Account Validator",
-            "description": "Developed a robust bulk bank account validator capable of processing large volumes of data from JSON, XML, and XLS formats. It securely validates accounts, tokenizing and encrypting sensitive information, and delivers detailed valid/invalid reports via email in the original input formats. The system is engineered for high performance, utilizing batch and parallel processing to efficiently handle asynchronous requests.",
+            "description": "Developed a robust bulk bank account validator capable of processing large volumes of data from JSON, XML, and XLS formats. It securely validates accounts, tokenizing and encrypting sensitive information, and delivers detailed valid/invalid reports via email in the original input formats.",
             "link": "https://github.com/DarynOngera/bulk-validator"
         },
         {

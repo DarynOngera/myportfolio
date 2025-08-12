@@ -8,10 +8,13 @@ interface AboutAppProps {
 const AboutApp: React.FC<AboutAppProps> = ({ aboutData }) => {
   return (
     <div className="about-app-content">
-      <h2>About Me</h2>
-      {aboutData.map((paragraph, index) => (
-        <p key={index}>{paragraph}</p>
-      ))}
+      <div className="about-app-background"></div>
+      <div className="about-app-text-overlay">
+        <h2>About Me</h2>
+        {aboutData.map((paragraph, index) => (
+          <p key={index}>{paragraph}</p>
+        ))}
+      </div>
     </div>
   );
 };
