@@ -25,50 +25,45 @@ const LandingPage: React.FC<LandingPageProps> = ({ onSelectView }) => {
   };
 
   return (
-    <div className="landing-container" style={{ backgroundColor: '#1a1a1a', color: '#d9d9d9', fontFamily: "'Noto Sans', sans-serif", display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', padding: '20px', boxSizing: 'border-box', overflow: 'hidden' }}>
+    <div className="landing-container">
       <div className="landing-content">
 
         {/* Left Column: About Me & Choices */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <div style={{ marginBottom: '30px' }}>
-            <h2 className="large-text highlight" style={{ marginBottom: '10px', fontSize: '2em', textAlign: 'left' }}>About Me</h2>
-            <p className="info-text" style={{ lineHeight: '1.5', fontSize: '1em', textAlign: 'left' }}>{bio}</p>
+        <div className="landing-left-column">
+          <div className="about-me-container">
+            <h2 className="large-text highlight about-me-header">About Me</h2>
+            <p className="info-text about-me-text">{bio}</p>
           </div>
-          <div className="choice-container" style={{ display: 'flex', justifyContent: 'flex-start', gap: '15px' }}>
-            <div className="landing-box" onClick={() => onSelectView('cli')} style={{ width: '150px', height: '150px', border: '2px solid #007ACC', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', cursor: 'pointer', transition: 'all 0.3s ease', color: '#d9d9d9' }}>
-              <h1 className="bold-text" style={{ fontSize: '2em', margin: '0' }}>CLI</h1>
-              <p className="small-text" style={{ fontSize: '0.9em', margin: '8px 0 0 0', textAlign: 'center' }}>Command Line Interface</p>
+          <div className="choice-container">
+            <div className="landing-box" onClick={() => onSelectView('cli')}>
+              <h1 className="bold-text">CLI</h1>
+              <p className="small-text">Command Line Interface</p>
             </div>
-            <div className="landing-box" onClick={() => onSelectView('gui')} style={{ width: '150px', height: '150px', border: '2px solid #007ACC', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', cursor: 'pointer', transition: 'all 0.3s ease', color: '#d9d9d9' }}>
-              <h1 className="bold-text" style={{ fontSize: '2em', margin: '0' }}>GUI</h1>
-              <p className="small-text" style={{ fontSize: '0.9em', margin: '8px 0 0 0', textAlign: 'center' }}>Graphical User Interface</p>
+            <div className="landing-box" onClick={() => onSelectView('gui')}>
+              <h1 className="bold-text">GUI</h1>
+              <p className="small-text">Graphical User Interface</p>
             </div>
           </div>
         </div>
 
         {/* Right Column: Wakatime Chart Gallery */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
-          <div style={{ width: '100%', overflow: 'hidden', position: 'relative', height: '400px' }}>
+        <div className="landing-right-column">
+          <div className="chart-gallery">
             {charts.map((chart, index) => (
               <img
                 key={index}
                 src={chart}
                 alt={`Wakatime Chart ${index + 1}`}
+                className="chart-image"
                 style={{
-                  width: '100%',
-                  height: 'auto',
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  transition: 'transform 0.5s ease-in-out',
                   transform: `translateX(${(index - currentChartIndex) * 100}%)`
                 }}
               />
             ))}
           </div>
-          <div style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
-            <button onClick={prevChart} style={{ background: 'none', border: '1px solid #007ACC', color: '#d9d9d9', padding: '10px 20px', cursor: 'pointer' }}>Prev</button>
-            <button onClick={nextChart} style={{ background: 'none', border: '1px solid #007ACC', color: '#d9d9d9', padding: '10px 20px', cursor: 'pointer' }}>Next</button>
+          <div className="chart-buttons">
+            <button onClick={prevChart}>Prev</button>
+            <button onClick={nextChart}>Next</button>
           </div>
         </div>
 

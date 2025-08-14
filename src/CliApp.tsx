@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo, JSX } from 'react';
-import './index.css';
+import './CliApp.css';
 import AsteroidsGame from './AsteroidsGame';
 import Terminal from './components/Terminal';
 import data from './data.json';

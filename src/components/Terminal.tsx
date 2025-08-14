@@ -31,18 +31,18 @@ const Terminal: React.FC<TerminalProps> = ({ output, input, inputRef, handleInpu
                             <br />
                         </React.Fragment>
                     ))}
-                </div>
-                <div className="terminal-input-line">
-                    <span className="terminal-prompt command-color">ongera@cli-portfolio:~$</span>
-                    <input
-                        ref={inputRef}
-                        type="text"
-                        className="terminal-input"
-                        value={input}
-                        onChange={handleInputChange}
-                        onKeyDown={handleInputKeyDown}
-                        autoFocus
-                    />
+                    <div className="terminal-input-line">
+                        <span className="terminal-prompt command-color">ongera@cli-portfolio:~$</span>
+                        <input
+                            ref={inputRef}
+                            type="text"
+                            className="terminal-input"
+                            value={input}
+                            onChange={handleInputChange}
+                            onKeyDown={handleInputKeyDown}
+                            autoFocus
+                        />
+                    </div>
                 </div>
             </div>
         </div>
